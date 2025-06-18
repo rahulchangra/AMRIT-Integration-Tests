@@ -8,13 +8,12 @@ dotenv.config();
   }
 });
 
-
-
 test('Login with invalid credentials shows error', async ({ page }) => {
   await page.goto(`${process.env.BASE_URL}/#/login`, { waitUntil: 'domcontentloaded' });
 
-  await page.pause();
-  
+  if (process.env.PLAYWRIGHT_DEBUG === 'true') {
+    await page.pause();
+  }
 
   await page.locator('#userID').click();
   await page.locator('#userID').fill('wronguser');
@@ -31,13 +30,16 @@ test('Login with invalid credentials shows error', async ({ page }) => {
 
 test('Login with valid credentials shows already logged in message', async ({ page }) => {
   await page.goto(`${process.env.BASE_URL}/#/login`, { waitUntil: 'domcontentloaded' });
-  await page.pause();
+
+  if (process.env.PLAYWRIGHT_DEBUG === 'true') {
+    await page.pause();
+  }
+
   await page.locator('#userID').click();
   await page.locator('#userID').fill(`${process.env.VALID_USERNAME}`);
 
   await page.locator('#password').click();
   await page.locator('#password').fill(`${process.env.VALID_PASSWORD}`);
-
 
   const loginButton = page.getByRole('button', { name: 'Login' });
   await expect(loginButton).toBeEnabled({ timeout: 10000 });
@@ -45,14 +47,17 @@ test('Login with valid credentials shows already logged in message', async ({ pa
 
   await expect(page.getByText(/You are already logged in,/i)).toBeVisible({ timeout: 5000 });
   await page.locator('#mat-mdc-dialog-0 > div > div > app-common-dialog > div > div.action > button.full-width-login.button-ok.background-primary').click();
-  
+
   await page.locator('#top-navbar > ul > li.mat-mdc-tooltip-trigger.nav-item.logout.cursorPointer.ng-star-inserted > a > mat-icon').click();
 });
 
-test('Fresh login should redirect to dashboard without already logged in message', async ({page}) => {
-
+test('Fresh login should redirect to dashboard without already logged in message', async ({ page }) => {
   await page.goto(`${process.env.BASE_URL}/#/login`, { waitUntil: 'domcontentloaded' });
-  await page.pause();
+
+  if (process.env.PLAYWRIGHT_DEBUG === 'true') {
+    await page.pause();
+  }
+
   await page.locator('#userID').fill(process.env.VALID_USERNAME);
   await page.locator('#password').fill(process.env.VALID_PASSWORD);
 
