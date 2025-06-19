@@ -2,11 +2,12 @@ import { test, expect } from '@playwright/test';
 import dotenv from 'dotenv';
 dotenv.config();
 
-['BASE_URL', 'VALID_USERNAME', 'VALID_PASSWORD'].forEach((v) => {
+const requiredVars = ['BASE_URL', 'VALID_USERNAME', 'VALID_PASSWORD'];
+for (const v of requiredVars) {
   if (!process.env[v]) {
-    throw new Error(`Environment variable ${v} is required for the authentication tests`);
+    throw new Error(`Missing required environment variable: ${v}`);
   }
-});
+}
 
 test('Login with invalid credentials shows error', async ({ page }) => {
   await page.goto(`${process.env.BASE_URL}/#/login`, { waitUntil: 'domcontentloaded' });
@@ -27,6 +28,15 @@ test('Login with invalid credentials shows error', async ({ page }) => {
 
   await expect(page.getByText(/User login failed due to/i)).toBeVisible({ timeout: 5000 });
 });
+
+
+
+
+
+
+
+
+
 
 test('Login with valid credentials shows already logged in message', async ({ page }) => {
   await page.goto(`${process.env.BASE_URL}/#/login`, { waitUntil: 'domcontentloaded' });
@@ -63,6 +73,10 @@ test('Fresh login should redirect to dashboard without already logged in message
 
   const loginButton = page.getByRole('button', { name: 'Login' });
   await loginButton.click();
+
+  await expect(
+    page.getByText(/You are already logged in,/i)
+  ).not.toBeVisible({ timeout: 3000 });
 
   await page.waitForURL('**/service', { timeout: 7000 });
 });
