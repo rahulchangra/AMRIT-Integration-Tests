@@ -46,9 +46,9 @@ test('Login with valid credentials shows already logged in message', async ({ pa
   await loginButton.click();
 
   await expect(page.getByText(/You are already logged in,/i)).toBeVisible({ timeout: 5000 });
-  await page.locator('#mat-mdc-dialog-0 > div > div > app-common-dialog > div > div.action > button.full-width-login.button-ok.background-primary').click();
+  await page.getByRole('button', { name: 'OK' }).click();
 
-  await page.locator('#top-navbar > ul > li.mat-mdc-tooltip-trigger.nav-item.logout.cursorPointer.ng-star-inserted > a > mat-icon').click();
+  await page.locator('a').filter({ hasText: 'power_settings_new' }).click();
 });
 
 test('Fresh login should redirect to dashboard without already logged in message', async ({ page }) => {
