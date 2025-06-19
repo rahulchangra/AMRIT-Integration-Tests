@@ -77,4 +77,5 @@ test('Fresh login should redirect to dashboard without already logged in message
   ).not.toBeVisible({ timeout: 3000 });
 
   await page.waitForURL('**/service', { timeout: 7000 });
+  await expect(page).toHaveURL(/\/service$/);
 });
