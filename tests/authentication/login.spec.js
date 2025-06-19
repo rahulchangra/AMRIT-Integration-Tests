@@ -1,6 +1,4 @@
 import { test, expect } from '@playwright/test';
-import dotenv from 'dotenv';
-dotenv.config();
 
 const requiredVars = ['BASE_URL', 'VALID_USERNAME', 'VALID_PASSWORD'];
 for (const v of requiredVars) {
