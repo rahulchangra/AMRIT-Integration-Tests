@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
@@ -8,7 +11,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    headless: process.env.HEADLESS === 'false' ? false : true,
+    headless: process.env.HEADLESS !== 'false',
     trace: 'on-first-retry',
   },
 
