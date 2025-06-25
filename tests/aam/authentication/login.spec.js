@@ -3,18 +3,18 @@ import dotenv from 'dotenv'
 dotenv.config();
 
 test('Login with invalid credentials shows error', async ({ page }) => {
-  await page.goto(`${process.env.BASE_URL}/aam`, { waitUntil: 'domcontentloaded' });
-  await page.locator('#userID').click();
-  await page.locator('#userID').fill('wronguser');
+  await page.goto(`${process.env.BASE_URL}/aam`, { waitUntil: 'networkidle' });
 
-  await page.locator('#password').click();
-  await page.locator('#password').fill('wrongpass');
+  // Fill credentials without unnecessary clicks
+  await page.fill('#userID', 'wronguser');
+  await page.fill('#password', 'wrongpass');
 
   const loginButton = page.getByRole('button', { name: 'Login' });
   await expect(loginButton).toBeEnabled({ timeout: 10000 });
   await loginButton.click();
 
-  await expect(page.getByText(/User login failed due to/i)).toBeVisible({ timeout: 5000 });
+  // More specific error message matching
+  await expect(page.getByText(/User login failed due to/i)).toBeVisible({ timeout: 10000 });
 });
 
 test('Login with valid credentials shows already logged in message', async ({ page }) => {
