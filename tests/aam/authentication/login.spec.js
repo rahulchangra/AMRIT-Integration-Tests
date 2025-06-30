@@ -22,15 +22,14 @@ test('Login with valid credentials shows already logged in message', async ({ pa
   await loginButton.click();
   const alreadyLoggedInText = page.getByText(/You are already logged in,/i);
   try {
-    await expect(alreadyLoggedInText).toBeVisible({ timeout: 3000 });
-    await page.getByRole('button', { name: 'OK' }).click();
-  } catch (error) {
-    console.log('No popup appeared or other error:',error.message);
-    }
-    
+  await expect(alreadyLoggedInText).toBeVisible({ timeout: 3000 });
+  await page.getByRole('button', { name: 'OK' }).click();
+} catch (error) {
+  console.log('No popup appeared or other error:', error.message);
+}   
   await page.waitForURL('**/service', { timeout: 7000 });
   await expect(page).toHaveURL(/\/service$/);
-});
+}); 
 
 
 
