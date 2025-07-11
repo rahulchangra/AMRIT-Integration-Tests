@@ -20,17 +20,28 @@ async function login(page) {
 test('Creating the beneficiary', async ({ page }) => {
   await login(page);
   await page.getByRole('button', { name: 'Continue' }).click();
-  await page.pause();
   await page.getByRole('button', { name: 'Registration' }).click();
   await page.getByRole('button', { name: 'Registration' }).nth(1).click();
   await page.getByRole('button', { name: 'ACCEPT' }).click();
   await page.fill('#mat-input-2', 'Rahul');
   await page.fill('#mat-input-3', '25');
-  await page.locator('div.mat-mdc-select-trigger').nth(0).click();
-  await page.locator('mat-option span.mdc-list-item__primary-text', { hasText: 'Male' }).click();
-  await page.locator('mat-select[formcontrolname="ageUnit"]').click();
-  await page.locator('mat-option span.mdc-list-item__primary-text', { hasText: 'Years' }).click();
+  await page.getByRole('combobox', { name: 'Gender' }).locator('span').click();
+  await page.getByText('Male', { exact: true }).click();
+  await page.getByRole('combobox', { name: 'Age Unit' }).locator('span').click();
+  await page.getByRole('option', { name: 'Years' }).click();
+  await page.getByRole('button', { name: 'Open calendar' }).click();
+  await page.getByRole('button', { name: 'July 6,' }).click();
+  await page.getByRole('combobox', { name: 'Marital Status' }).locator('span').click();
+  await page.getByRole('option', { name: 'Unmarried' }).click();
   await page.getByRole('button', { name: 'Next' }).click();
+  await page.getByLabel('villageName').getByText('villageName').click();
+  await page.getByRole('option', { name: 'Akhara' }).click();
+  await page.getByRole('button', { name: 'Next' }).click();
+  await page.getByRole('textbox', { name: 'Father Name' }).click();
+  await page.getByRole('textbox', { name: 'Father Name' }).fill('Ramesh');
+  await page.getByRole('button', { name: 'Next' }).click();
+  await page.getByRole('button', { name: 'Submit' }).click();
+  await page.getByRole('button', { name: 'OK' }).click();
 });
 
 
