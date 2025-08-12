@@ -12,7 +12,6 @@ test('Login with invalid credentials shows error', async ({ page }) => {
 
 test('Login with valid credentials shows already logged in message', async ({ page }) => {
   await page.goto(`${process.env.BASE_URL}/aam`, { waitUntil: 'networkidle' });
-  await page.pause();
   await page.fill('#userID', process.env.AAM_USERNAME);
   await page.fill('#password', process.env.AAM_PASSWORD);
   const loginButton = page.getByRole('button', { name: 'Login' });
