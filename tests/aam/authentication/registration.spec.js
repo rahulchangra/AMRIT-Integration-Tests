@@ -27,7 +27,6 @@ test('Creating the beneficiary', async ({ page }) => {
   await page.getByRole('button', { name: 'ACCEPT' }).click();
   await page.fill('#mat-input-2', 'Rahul');
   await page.fill('#mat-input-3', '25');
-  await page.pause();
   await page.getByRole('combobox', { name: 'Gender' }).locator('span').click();
   await page.getByText('Male', { exact: true }).click();
   await page.getByRole('combobox', { name: 'Age Unit' }).locator('span').click();
