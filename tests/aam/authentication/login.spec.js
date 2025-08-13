@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
 
+
 test('Login with invalid credentials shows error', async ({ page }) => {
-  await page.goto(`${process.env.BASE_URL}/aam`, { waitUntil: 'networkidle' });\
+  await page.goto(`${process.env.BASE_URL}/aam`, { waitUntil: 'networkidle' });
   await page.fill('#userID', 'wronguser');
   await page.fill('#password', 'wrongpass');
   const loginButton = page.getByRole('button', { name: 'Login' });

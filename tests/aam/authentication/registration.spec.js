@@ -1,6 +1,4 @@
 import { test, expect } from '@playwright/test';
-import dotenv from 'dotenv';
-dotenv.config();
 
 async function login(page) {
   await page.goto(`${process.env.BASE_URL}/aam`, { waitUntil: 'networkidle' });
