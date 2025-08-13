@@ -16,7 +16,7 @@ To set up the project locally, follow these steps:
 1.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/your-username/AMRIT-Integration-Tests.git
+    git clone https://github.com/rahulchangra/AMRIT-Integration-Tests
     cd AMRIT-Integration-Tests
     ```
 
