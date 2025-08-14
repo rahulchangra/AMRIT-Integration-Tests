@@ -26,8 +26,11 @@ To set up the project locally, follow these steps:
 
 2.  **Install dependencies:**
 
+    This project uses `Playwright` for browser automation and `dotenv` for managing environment variables. Install all necessary packages, including Playwright browsers, with:
+
     ```bash
-    npm install
+    npm install dotenv
+    npm install playwright
     ```
 
 ## Usage
