@@ -20,7 +20,7 @@ To set up the project locally, follow these steps:
 1.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/rahulchangra/AMRIT-Integration-Tests
+    git clone https://github.com/PSMRI/AMRIT-Integration-Tests
     cd AMRIT-Integration-Tests
     ```
 
@@ -29,8 +29,8 @@ To set up the project locally, follow these steps:
     This project uses `Playwright` for browser automation and `dotenv` for managing environment variables. Install all necessary packages, including Playwright browsers, with:
 
     ```bash
-    npm install playwright
-    npm install dotenv
+    npm install
+    npx playwright install --with-deps
     ```
 
 ## Environment Variables
