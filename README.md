@@ -33,6 +33,15 @@ To set up the project locally, follow these steps:
     npm install dotenv
     ```
 
+## Environment Variables
+
+After installation, you need to set up your environment variables.
+
+1.  Create a new file named `.env` in the root of the project directory.
+2.  Copy the contents of the `.env.example` file.
+3.  Paste the contents into the new `.env` file.
+4.  In the `.env` file, fill in your credentials for the respective variables.
+
 ## Usage
 
 ### Running Tests
