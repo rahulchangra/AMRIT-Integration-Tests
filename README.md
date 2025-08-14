@@ -9,6 +9,10 @@ This repository contains integration tests for the AMRIT application, built usin
 - **Headless and Headed Modes:** Supports running tests in both headless (default) and headed browser modes for debugging.
 - **Authentication & Registration Tests:** Specific test suites for user login and registration processes.
 
+## Prerequisites
+
+Make sure you have the LTS version of Node.js installed on your system. You can download it from [here](https://nodejs.org/).
+
 ## Installation
 
 To set up the project locally, follow these steps:
