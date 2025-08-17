@@ -1,18 +1,44 @@
 import { expect } from '@playwright/test';
 
 export async function login(page) {
-  await page.goto(`${process.env.BASE_URL}/aam`, { waitUntil: 'networkidle' });
-  await page.fill('#userID', process.env.AAM_USERNAME);
-  await page.fill('#password', process.env.AAM_PASSWORD);
+  // ✅ Destructure env vars
+  const { BASE_URL, AAM_USERNAME, AAM_PASSWORD } = process.env;
+
+  // ✅ Fail fast if missing
+  if (!BASE_URL || !AAM_USERNAME || !AAM_PASSWORD) {
+    throw new Error('Missing required env vars: BASE_URL, AAM_USERNAME, AAM_PASSWORD');
+  }
+
+  // Navigate
+  await page.goto(`${BASE_URL}/aam`, { waitUntil: 'networkidle' });
+
+  // Fill credentials
+  await page.fill('#userID', AAM_USERNAME);
+  await page.fill('#password', AAM_PASSWORD);
+
+  // Ensure login button is enabled
   const loginButton = page.getByRole('button', { name: 'Login' });
   await expect(loginButton).toBeEnabled({ timeout: 10000 });
   await loginButton.click();
-  const alreadyLoggedInText = page.getByText(/You are already logged in,/i);
+
+  // ✅ Loosen text match (ignore comma, case)
+  const alreadyLoggedInText = page.getByText(/You are already logged in/i);
+
   try {
+    // Wait for popup if it appears
     await expect(alreadyLoggedInText).toBeVisible({ timeout: 3000 });
-    await page.getByRole('button', { name: 'OK' }).click();
-  } catch (error) {
-    console.log('No popup appeared or other error: ', error.message);
+
+    // ✅ Scope to dialog, make button match stricter
+    await page.getByRole('dialog').getByRole('button', { name: /^OK$/i }).click();
+
+  } catch (err) {
+    // Only ignore timeout errors (popup not appearing)
+    if (err.name !== 'TimeoutError') {
+      throw err; // rethrow unexpected errors
+    }
+    console.log('No popup appeared (normal case).');
   }
+
+  // Wait for navigation
   await page.waitForURL('**/service', { timeout: 7000 });
 }
