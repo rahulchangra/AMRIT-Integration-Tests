@@ -7,7 +7,7 @@ export async function login(page) {
   }
 
   await page.goto(`${BASE_URL}/aam`, { waitUntil: 'networkidle' });
-  await page.fill('#use rID', AAM_USERNAME);
+  await page.fill('#userID', AAM_USERNAME);
   await page.fill('#password', AAM_PASSWORD);
 
   const loginButton = page.getByRole('button', { name: 'Login' });
@@ -16,11 +16,9 @@ export async function login(page) {
 
   const alreadyLoggedInText = page.getByText(/You are already logged in/i);
   try {
-    await expect(alreadyLoggedInText).toBeVisible({ timeout: 3000 });
-    await page.getByRole('dialog').getByRole('button', { name: /^OK$/i }).click();
-  } catch (error) {
-    console.log('No popup appeared or other error: ', error.message);
-  }
+       await alreadyLoggedInText.waitFor({ state: 'visible', timeout: 3000 });
+       await page.getByRole('dialog').getByRole('button', { name: /^OK$/i }).click();
+      } catch {}
 
-  await page.waitForURL('**/service', { timeout: 7000 });
+  await expect(page).toHaveURL(/\/service(?:$|[/?#])/);
 }
