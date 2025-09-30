@@ -8,7 +8,8 @@ export async function login(page) {
     );
   }
 
-  const url = new URL("aam", BASE_URL);
+  const normalizedBase = BASE_URL.endsWith("/") ? BASE_URL : `${BASE_URL}/`;
+  const url = new URL("aam", normalizedBase);
   await page.goto(url.href);
   await page.waitForSelector("#userID");
   await page.fill("#userID", AAM_USERNAME);
