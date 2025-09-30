@@ -6,7 +6,9 @@ export async function login(page) {
     throw new Error('Missing required env vars: BASE_URL, AAM_USERNAME, AAM_PASSWORD');
   }
 
-  await page.goto(`${BASE_URL}/aam`, { waitUntil: 'networkidle' });
+  const url = new URL('aam', BASE_URL);
+  await page.goto(url.href);
+  await page.waitForSelector('#userID');
   await page.fill('#userID', AAM_USERNAME);
   await page.fill('#password', AAM_PASSWORD);
 
@@ -20,5 +22,6 @@ export async function login(page) {
        await page.getByRole('dialog').getByRole('button', { name: /^OK$/i }).click();
       } catch {}
 
-  await expect(page).toHaveURL(/\/service(?:$|[/?#])/);
+  await expect(page).toHaveURL(/#\/service/);
+  await expect(page.getByRole('button', { name: 'Continue' })).toBeVisible();
 }
