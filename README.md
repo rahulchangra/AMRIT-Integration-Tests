@@ -51,7 +51,7 @@ After installation, you need to set up your environment variables.
 To run the entire test suite, which includes registration, nurse, doctor, and lab technician flows, use the following command:
 
 ```bash
-npm run full-flow
+./aam-full-flow.ps1
 ```
 
 This will run all the tests in sequence and then open the Playwright report.
@@ -62,23 +62,23 @@ You can also run tests for specific user roles. These commands run the tests in 
 
 - **Registration:**
   ```bash
-  npm run register
+  npx playwright test registration.spec.js --project=chromium --headed
   ```
 - **Nurse:**
   ```bash
-  npm run nurse
+  npx playwright test nurse.spec.js --project=chromium --headed
   ```
 - **Doctor:**
   ```bash
-  npm run doctor
+  npx playwright test doctor.spec.js --project=chromium --headed
   ```
 - **Lab Technician:**
   ```bash
-  npm run labtech
+  npx playwright test labtech.spec.js --project=chromium --headed
   ```
 - **Doctor Verify:**
   ```bash
-  npm run doctorverify
+  npx playwright test doctor.verify.spec.js --project=chromium --headed
   ```
 
 ### Running Specific Test Files
