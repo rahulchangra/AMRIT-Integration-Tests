@@ -5,7 +5,7 @@ $env:HEADLESS = "false"
 $env:PWDEBUG = "1"
 $env:BROWSER = "chromium"
 
-function Run-Step($name, $path) {
+function Invoke-Step($name, $path) {
     $stepStart = Get-Date
     Write-Host "Running $name..."
     npx playwright test $path --project=chromium --headed
@@ -18,11 +18,11 @@ function Run-Step($name, $path) {
     Write-Host "$name completed in $duration seconds.`n"
 }
 
-Run-Step "Registration"      "tests/aam/authentication/registration.spec.js"
-Run-Step "Nurse"             "tests/aam/authentication/nurse.spec.js"
-Run-Step "Doctor"            "tests/aam/authentication/doctor.spec.js"
-Run-Step "Lab Technician"    "tests/aam/authentication/labtech.spec.js"
-Run-Step "Doctor Verification" "tests/aam/authentication/doctor.verify.spec.js"
+Invoke-Step "Registration"      "tests/aam/registration.spec.js"
+Invoke-Step "Nurse"             "tests/aam/nurse.spec.js"
+Invoke-Step "Doctor"            "tests/aam/doctor.spec.js"
+Invoke-Step "Lab Technician"    "tests/aam/labtech.spec.js"
+Invoke-Step "Doctor Verification" "tests/aam/doctor.verify.spec.js"
 
 $end = Get-Date
 $total = [math]::Round(($end - $start).TotalSeconds, 2)

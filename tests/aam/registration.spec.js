@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { faker } from "@faker-js/faker";
-import { login } from "../../../helpers/login.js";
+import { login } from "../../helpers/login.js";
 import * as fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from "url";

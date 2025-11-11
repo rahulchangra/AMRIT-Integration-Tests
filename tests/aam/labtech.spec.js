@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { login } from '../../../helpers/login.js';
+import { login } from "../../helpers/login.js";
 import { fileURLToPath } from 'url';
 import * as path from 'path';
 import * as fs from 'fs';
