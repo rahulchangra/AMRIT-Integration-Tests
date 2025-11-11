@@ -120,6 +120,3 @@ npx playwright test tests/aam/login.spec.js
 - `playwright.config.js`: Playwright configuration file.
 - `.env.example`: Example environment variables file. Copy this to `.env` and fill in your credentials.
 
-## License
-
-This project is licensed under the ISC License. See the `LICENSE` file for details (if present, otherwise it's implied by package.json).
