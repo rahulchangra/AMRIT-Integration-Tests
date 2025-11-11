@@ -4,6 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "register": "echo Running Registration... && npx playwright test tests/aam/authentication/registration.spec.js",
+  "nurse": "echo Running Nurse... && npx playwright test tests/aam/authentication/nurse.spec.js",
+  "doctor": "echo Running Doctor... && npx playwright test tests/aam/authentication/doctor.spec.js",
+  "labtech": "echo Running Lab Technician... && npx playwright test tests/aam/authentication/labtech.spec.js",
+  "doctorverify": "echo Running Doctor Verify... && npx playwright test tests/aam/authentication/doctor.verify.spec.js",
+  "full-flow": "npm run register; npm run nurse; npm run doctor; npm run labtech; npm run doctorverify && npx playwright show-report",
     "test": "playwright test",
     "test:headed": "PLAYWRIGHT_HEADLESS=false playwright test"
   },
@@ -13,9 +19,8 @@
   "type": "module",
   "devDependencies": {
     "@faker-js/faker": "^9.9.0",
-    "@playwright/test": "^1.54.2",
+    "@playwright/test": "^1.56.1",
     "@types/node": "^24.0.1",
     "dotenv": "^16.6.1"
-  },
-  "dependencies": {}
+  }
 }

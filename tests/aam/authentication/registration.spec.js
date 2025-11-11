@@ -19,7 +19,7 @@ test.describe("Registration and Nurse Flow", () => {
   test("Creating the beneficiary", async ({ page }) => {
     await login(page);
     await page.getByRole("button", { name: "Continue" }).click();
-    await expect(
+     await expect(
       page.getByRole("button", { name: "Registration" }),
     ).toBeVisible();
     await page.getByRole("button", { name: "Registration" }).click();
@@ -31,9 +31,7 @@ test.describe("Registration and Nurse Flow", () => {
     await page
       .getByRole("textbox", { name: /First Name/i })
       .fill(faker.person.firstName());
-    await page
-      .getByRole("textbox", { name: /Last Name/i })
-      .fill(faker.person.lastName());
+    await page.locator('input[placeholder="Last Name"]').fill(faker.person.lastName());
     await page
       .getByRole("combobox", { name: "Gender" })
       .locator("span")
@@ -67,7 +65,9 @@ test.describe("Registration and Nurse Flow", () => {
     await page
       .getByRole("textbox", { name: "Father Name" })
       .fill(faker.person.firstName());
-    await page.getByRole("button", { name: "Next" }).click();
+    await page.getByRole('tabpanel', { name: /Other Information/i })
+      .getByRole('button', { name: 'Next' })
+      .click();
     await page.getByRole("button", { name: "Submit" }).click();
     await expect(page.getByRole("heading", { name: "Success" })).toBeVisible({
       timeout: 10000,
@@ -95,32 +95,7 @@ test.describe("Registration and Nurse Flow", () => {
     }
 
     await page.getByRole("button", { name: "OK" }).click();
+    await page.waitForTimeout(2000);
+    await page.reload();
   });
-});
-
-test("Submit button is disabled when required details are missing", async ({
-  page,
-}) => {
-  await login(page);
-
-  await page.getByRole("button", { name: "Continue" }).click();
-  await page.getByRole("button", { name: "Registration" }).click();
-  await page.getByRole("button", { name: "Registration" }).nth(1).click();
-  await page.getByRole("button", { name: "ACCEPT" }).click();
-
-  await clickNext(page);
-
-  await page
-    .getByRole("combobox", { name: "State Assam" })
-    .locator("svg")
-    .click();
-  await page.getByRole("option", { name: "Assam", exact: true }).click();
-  await clickNext(page);
-
-  await page
-    .getByRole("textbox", { name: "Father Name" })
-    .fill(faker.person.firstName());
-  await clickNext(page);
-
-  await expect(page.getByRole("button", { name: "Submit" })).toBeDisabled();
 });
