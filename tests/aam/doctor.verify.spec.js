@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { login } from "../../helpers/login.js";
+import { readJson, writeJson } from "../../helpers/testData.js";
 import { fileURLToPath } from 'url';
 import * as path from 'path';
 import * as fs from 'fs';
@@ -7,15 +8,10 @@ import * as fs from 'fs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const testRequestPath = path.resolve(__dirname, '../../../testRequest.json');
-const beneficiaryPath = path.resolve(__dirname, '../../../beneficiary.json');
+const testRequestPath = path.resolve(__dirname, '../../testRequest.json');
+const beneficiaryPath = path.resolve(__dirname, '../../beneficiary.json');
 
-function readJson(p) {
-  return JSON.parse(fs.readFileSync(p, 'utf-8'));
-}
-function writeJson(p, obj) {
-  fs.writeFileSync(p, JSON.stringify(obj, null, 2));
-}
+
 
 test('Doctor verifies lab result and closes consultation', async ({ page }) => {
   await login(page);

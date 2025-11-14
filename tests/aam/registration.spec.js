@@ -87,7 +87,7 @@ test.describe("Registration and Nurse Flow", () => {
 
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
-    const filePath = path.resolve(__dirname, "../../../beneficiary.json");
+    const filePath = path.resolve(__dirname, "../../beneficiary.json");
     try {
       fs.writeFileSync(filePath, JSON.stringify({ beneficiaryId }, null, 2));
     } catch (error) {
@@ -95,7 +95,5 @@ test.describe("Registration and Nurse Flow", () => {
     }
 
     await page.getByRole("button", { name: "OK" }).click();
-    await page.waitForTimeout(2000);
-    await page.reload();
   });
 });

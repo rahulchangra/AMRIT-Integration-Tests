@@ -12,7 +12,7 @@ test("Nurse provides consultation to the beneficiary", async ({ page }) => {
   await login(page);
   await page.getByRole("button", { name: "Continue" }).click();
 
-  const filePath = path.resolve(__dirname, "../../../beneficiary.json");
+  const filePath = path.resolve(__dirname, "../../beneficiary.json");
   let beneficiaryData;
   try {
     beneficiaryData = JSON.parse(fs.readFileSync(filePath, "utf-8"));

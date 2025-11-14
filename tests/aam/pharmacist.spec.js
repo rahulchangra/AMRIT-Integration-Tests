@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { login } from '../../../helpers/login.js';
+import { login } from '../../helpers/login.js';
+import { readJson, writeJson } from "../../helpers/testData.js";
 import { fileURLToPath } from 'url';
 import * as path from 'path';
 import * as fs from 'fs';
@@ -7,16 +8,9 @@ import * as fs from 'fs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const testRequestPath = path.resolve(__dirname, '../../../testRequest.json');
+const testRequestPath = path.resolve(__dirname, '../../testRequest.json');
 
-function readJson(p) {
-  return JSON.parse(fs.readFileSync(p, 'utf-8'));
-}
-function writeJson(p, obj) {
-  fs.writeFileSync(p, JSON.stringify(obj, null, 2));
-}
-
-test('Lab Technician fills the result for pending test', async ({ page }) => {
+test('Pharmacist dispenses medication', async ({ page }) => {
   await login(page);
   await page.getByRole('button', { name: 'Continue' }).click();
 
@@ -28,4 +22,6 @@ test('Lab Technician fills the result for pending test', async ({ page }) => {
   await page.getByRole('cell', { name: String(beneficiaryId) }).click();
   const okButton = page.getByRole('button', { name: 'OK' });
   await okButton.click();
+
+  // TODO: Add steps to dispense medication and assert the outcome.
 });

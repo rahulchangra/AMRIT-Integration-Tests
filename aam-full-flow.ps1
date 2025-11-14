@@ -22,6 +22,7 @@ Invoke-Step "Registration"      "tests/aam/registration.spec.js"
 Invoke-Step "Nurse"             "tests/aam/nurse.spec.js"
 Invoke-Step "Doctor"            "tests/aam/doctor.spec.js"
 Invoke-Step "Lab Technician"    "tests/aam/labtech.spec.js"
+Invoke-Step "Pharmacist"        "tests/aam/pharmacist.spec.js"
 Invoke-Step "Doctor Verification" "tests/aam/doctor.verify.spec.js"
 
 $end = Get-Date
